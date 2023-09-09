@@ -3,6 +3,7 @@
 use App\Models\Nft;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\NftController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DashboardController;
 
@@ -31,11 +32,18 @@ Route::middleware('auth')->group(function () {
     Route::middleware('role:admin')->prefix('admin')->group(function () {
         // route admin authentifié
         Route::get('/home', [DashboardController::class, 'index'])->name('home');
+        Route::post('/store-nft', [NftController::class, 'store'])->name('store.nft');
     });
 
     Route::middleware('role:user')->group(function () {
         // route user authentifié
         Route::get('/home', [HomeController::class, 'index'])->name('home');
+    });
+
+
+    Route::middleware('role:admin,user')->group(function () {
+        Route::get('/nfts', [NftController::class, 'index'])->name('all.nfts');
+        Route::get('/one-nft', [NftController::class, 'show'])->name('one.nfts');
     });
 });
 
