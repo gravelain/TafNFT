@@ -4,9 +4,13 @@ use App\Models\Nft;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 <<<<<<< HEAD
+<<<<<<< HEAD
 use App\Http\Controllers\NftController;
 =======
 >>>>>>> 5797d40 (changement locaux)
+=======
+use App\Http\Controllers\NftController;
+>>>>>>> 195f00a (changement locaux)
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DashboardController;
 
@@ -34,12 +38,21 @@ Route::get('/', function () {
 Route::middleware(['auth','admin'])->group(function () {
     Route::middleware(['role:admin'])->prefix('admin')->group(function () {
         // route admin authentifié
+<<<<<<< HEAD
 <<<<<<< HEAD:nftMarket/routes/web.php
         Route::get('/home', [DashboardController::class, 'index'])->name('home');
         Route::post('/store-nft', [NftController::class, 'store'])->name('store.nft');
 =======
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 >>>>>>> ad29e6c (add new file):routes/web.php
+=======
+<<<<<<< HEAD:routes/web.php
+        Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+=======
+        Route::get('/home', [DashboardController::class, 'index'])->name('home');
+        Route::post('/store-nft', [NftController::class, 'store'])->name('store.nft');
+>>>>>>> 0c9c0a3 (Mise en place de l'interface utilisateur avec ses propres nfts):nftMarket/routes/web.php
+>>>>>>> 195f00a (changement locaux)
     });
 
     Route::middleware('role:user')->group(function () {
