@@ -25,10 +25,10 @@ Route::get('/', function () {
 
 
 // route authentifi 
-Route::middleware('auth')->group(function () {
-    Route::middleware('role:admin')->prefix('admin')->group(function () {
+Route::middleware(['auth','admin'])->group(function () {
+    Route::middleware(['role:admin'])->prefix('admin')->group(function () {
         // route admin authentifié
-        Route::get('/home', [DashboardController::class, 'index'])->name('home');
+        Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     });
 
     Route::middleware('role:user')->group(function () {
