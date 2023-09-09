@@ -25,7 +25,7 @@ Route::get('/', function () {
 
 // route authentifi 
 Route::middleware('auth')->group(function () {
-    Route::middleware('role:admin')->group(function () {
+    Route::middleware('role:admin')->prefix('admin')->group(function () {
         // route admin authentifié
         Route::get('/home', [HomeController::class, 'index'])->name('home');
     });
