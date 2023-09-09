@@ -27,7 +27,7 @@ class NftFactory extends Factory
             'adresse' => $this->faker->unique()->numberBetween(10000, 15000),
             'price' => $this->faker->numberBetween(1000, 20000),
             'token_standard' => $this->faker->randomElement(['ERC-721', 'ERC-1155', 'ERC-998']),
-            'image' => config('app.url'). '/images/' . 'nft-0' . self::$i++ . '.jpg',
+            'image' => config('app.url'). '/images/' . 'nft-' . self::$i++ . '.jpg',
             'user_id' => 1, // admin id
             'category_id' => function () {
                 return Category::all()->random()->id;
