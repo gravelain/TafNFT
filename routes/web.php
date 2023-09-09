@@ -28,11 +28,15 @@ Route::get('/', function () {
 
 
 // route authentifi 
-Route::middleware('auth')->group(function () {
-    Route::middleware('role:admin')->prefix('admin')->group(function () {
+Route::middleware(['auth','admin'])->group(function () {
+    Route::middleware(['role:admin'])->prefix('admin')->group(function () {
         // route admin authentifié
+<<<<<<< HEAD:nftMarket/routes/web.php
         Route::get('/home', [DashboardController::class, 'index'])->name('home');
         Route::post('/store-nft', [NftController::class, 'store'])->name('store.nft');
+=======
+        Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+>>>>>>> ad29e6c (add new file):routes/web.php
     });
 
     Route::middleware('role:user')->group(function () {
