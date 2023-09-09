@@ -17,12 +17,11 @@ use Illuminate\Support\Facades\Route;
 
 
 // route user non authentifié
-Route::middleware('guest')->group(function () {
-    // Route d'accueil, qui liste tous les NFT
-    Route::get('/', function () {
-        return view('nfts/nfts');
-    });
+// Route d'accueil, qui liste tous les NFT
+Route::get('/', function () {
+    return view('nfts/nfts');
 });
+
 
 // route authentifi 
 Route::middleware('auth')->group(function () {
