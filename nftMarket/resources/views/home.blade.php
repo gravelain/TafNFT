@@ -13,7 +13,7 @@
                         </div>
                     @endif
 
-                    {{ __('Welcome back The Futur Owner !') }}
+                    {{ __('Welcome back !') }} {{ auth()->user()->name }}
                     
                 </div>
             </div>
