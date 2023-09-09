@@ -91,10 +91,6 @@
             <!-- /row -->
         </div>
     </div>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 7a96446 (Mise en place de la vue home et principale)
     
 </div>
 
@@ -105,11 +101,4 @@
 
 <!-- SPECIFIC SCRIPTS -->
 <script src="{{asset('ecommerce/js/carousel-home.min.js')}}"></script>
-    {{-- {{ $nfts }} --}}
-<<<<<<< HEAD
-=======
-    {{ $nfts }}
->>>>>>> 5797d40 (changement locaux)
-=======
->>>>>>> 7a96446 (Mise en place de la vue home et principale)
 @endsection
