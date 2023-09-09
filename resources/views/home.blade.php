@@ -22,11 +22,28 @@
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 <div class="container">
     <div class="row justify-content-center">
+<<<<<<< HEAD
         <div class="container margin_60_35">
             <div class="main_title">
                 <h2>Top Selling</h2>
                 <span>Products</span>
                 <p>Cum doctus civibus efficiantur in imperdiet deterruisset</p>
+=======
+        <div class="col-md-3">
+            <div class="card">
+
+                <div class="card-body">
+                    @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+
+                    {{ __('Welcome back !') }} {{ auth()->user()->name }}
+                    {{ $nfts }}
+                    
+                </div>
+>>>>>>> 5797d40 (changement locaux)
             </div>
             
             <div class="row small-gutters">

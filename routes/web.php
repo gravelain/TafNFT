@@ -3,7 +3,10 @@
 use App\Models\Nft;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+<<<<<<< HEAD
 use App\Http\Controllers\NftController;
+=======
+>>>>>>> 5797d40 (changement locaux)
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DashboardController;
 

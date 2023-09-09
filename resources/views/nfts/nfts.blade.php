@@ -91,6 +91,7 @@
             <!-- /row -->
         </div>
     </div>
+<<<<<<< HEAD
     
 </div>
 
@@ -102,4 +103,7 @@
 <!-- SPECIFIC SCRIPTS -->
 <script src="{{asset('ecommerce/js/carousel-home.min.js')}}"></script>
     {{-- {{ $nfts }} --}}
+=======
+    {{ $nfts }}
+>>>>>>> 5797d40 (changement locaux)
 @endsection
