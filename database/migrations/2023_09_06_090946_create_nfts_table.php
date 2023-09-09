@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('adresse')->unique();
             $table->enum('token_standard',['ERC-721', 'ERC-1155', 'ERC-998'])->default('ERC-721');
             $table->float('price');
+            $table->boolean('for_sale')->default(1);
             $table->string('image', 255);
             $table->foreignId('proprietaire_id')->nullable()->references('id')->on('users'); // personne ayant payé le nft
             $table->foreignIdFor(Category::class);
