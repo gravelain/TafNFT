@@ -21,4 +21,5 @@
             jeu video online
         </a>
     </div>
+    {{ $nfts }}
 @endsection

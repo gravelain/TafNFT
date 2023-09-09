@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\DashboardController;
+use App\Models\Nft;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +21,8 @@ use Illuminate\Support\Facades\Route;
 // route user non authentifié
 // Route d'accueil, qui liste tous les NFT
 Route::get('/', function () {
-    return view('nfts/nfts');
+    $nfts = Nft::all();
+    return view('nfts/nfts')->with('nfts', $nfts);
 });
 
 

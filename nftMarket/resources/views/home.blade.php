@@ -14,6 +14,7 @@
                     @endif
 
                     {{ __('Welcome back !') }} {{ auth()->user()->name }}
+                    {{ $nfts }}
                     
                 </div>
             </div>
