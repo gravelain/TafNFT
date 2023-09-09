@@ -43,7 +43,7 @@
                     <div class="col-6 col-md-4 col-xl-3">
                         <div class="grid_item">
                             <figure>
-                                <span class="ribbon off">Acheté</span>
+                                <span class="ribbon off">{{$nft->for_sale ? 'En vente' : 'Vendu'}}</span>
                                 <a href="{{ url('product-detail-' . $nft->id) }}">
                                     <img class="img-fluid lazy" style="width: 80%" src="{{ asset('ecommerce/img/products/product_placeholder_square_medium.jpg') }}" data-src="{{ $nft->image }}" alt="">
                                     <!-- Ajoutez l'autre image ici si nécessaire -->
@@ -63,7 +63,11 @@
                                 {{-- <span class="old_price">$60.00</span> --}}
                             </div>
                             <div class="price_box">
+                                @if($nft->for_sale == 0)
                                 <div class="btn_add_to_cart"><a href="#0" class="btn_1">Vendre</a></div>
+                                @else
+                                <div class="btn_add_to_cart"><a href="#0" class="btn_1">Acheter</a></div>
+                                @endif
                             </div>
                             <ul>
                                 <li><a href="#0" class="tooltip-1" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to favorites"><i class="ti-heart"></i><span>Add to favorites</span></a></li>
