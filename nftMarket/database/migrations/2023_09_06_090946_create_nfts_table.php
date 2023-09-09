@@ -1,10 +1,10 @@
 <?php
 
-use App\Models\Category;
 use App\Models\User;
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use App\Models\Category;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -15,28 +15,19 @@ return new class extends Migration
     {
         Schema::create('nfts', function (Blueprint $table) {
             $table->id();
-            $table->string('titre', 100);
+            $table->string('title', 100);
             $table->string('artiste');
             $table->string('description', 255);
             $table->string('adresse')->unique();
-            $table->enum('standard',['ERC-721', 'ERC-1155', 'ERC-998'])->default('ERC-721');
+            $table->enum('token_standard',['ERC-721', 'ERC-1155', 'ERC-998'])->default('ERC-721');
             $table->float('price');
-            $table->string('file', 255);
-            $table->timestamps();
-            
-            
-                                    
+            $table->string('image', 255);
+            $table->foreignId('proprietaire_id')->nullable()->references('id')->on('users'); // personne ayant payé le nft
+            $table->foreignIdFor(Category::class);
+            $table->foreignIdFor(User::class); // personne qui crée le nft
+            $table->softDeletes();
+            $table->timestamps();                          
         });
-        
-        // modification de la table NFT pour mettre les relations et les contraintes de suppressions
-        
-        Schema::table('nfts', function(Blueprint $table){
-            
-            $table->foreignIdFor(User::class)->nullable()->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(Category::class)->constrained()->cascadeOnDelete();
-        
-        });
-        
     }
 
     /**
@@ -45,10 +36,5 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('nfts');
-        
-        Schema::table('nfts', function(Blueprint $table){
-            $table->dropConstrainedForeignIdFor(User::class);
-            $table->dropConstrainedForeignIdFor(Category::class);
-        });
     }
 };
