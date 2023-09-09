@@ -12,6 +12,9 @@
 <link href="{{asset('ecommerce/css/custom.css')}}" rel="stylesheet">
 <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 7a96446 (Mise en place de la vue home et principale)
 <link rel="apple-touch-icon" type="image/x-icon" href="{{asset('ecommerce/img/apple-touch-icon-57x57-precomposed.png')}}">
 <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="{{asset('ecommerce/img/apple-touch-icon-72x72-precomposed.png')}}">
 <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="{{asset('ecommerce/img/apple-touch-icon-114x114-precomposed.png')}}">
@@ -21,6 +24,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+<<<<<<< HEAD
 <div class="container">
     <div class="row justify-content-center">
 <<<<<<< HEAD
@@ -65,6 +69,10 @@
 =======
             </div> --}}
         {{-- </div> --}}
+=======
+<div class="container">
+    <div class="row justify-content-center">
+>>>>>>> 7a96446 (Mise en place de la vue home et principale)
         <div class="container margin_60_35">
             <div class="main_title">
                 <h2>Top Selling</h2>
