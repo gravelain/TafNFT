@@ -50,20 +50,22 @@
                         <tr>
                             <td>{{ $item->title }}</td>
                             <td>{{ $item->artiste }}</td>
-                            <td>{{ $item->owner->name }}</td>
+                            <td>{{ isset($item->owner->name) ? $item->owner->name : 'pas de propriétaire' }}</td>
                             <td>{{ number_format($item->price, 2) }} Eth</td>
                             <td>{{ $item->category->name }}</td>
                             <td>{{ $item->for_sale ? 'A vendre' : 'vendu' }}</td>
                             <td><img src="{{ asset($item->image) }}" height="100" width="100" /></td>
                             <td>
-                                <!-- Button trigger modal -->
-                                <a href="#" class="btn btn-danger fs-14 text-white edit-icn" data-bs-toggle="modal"
-                                    data-bs-target="#confirmDeleteModal{{ $item->id }}" title="Supprimer">
-                                    <i class="fe fe-trash-2 fe-pen" title="Supprimer"></i>
-                                    Supprimer
-                                </a>
+                                @if (!isset($item->owner->name))
+                                    <!-- Button trigger modal -->
+                                    <a href="#" class="btn btn-danger fs-14 text-white edit-icn"
+                                        data-bs-toggle="modal" data-bs-target="#confirmDeleteModal{{ $item->id }}"
+                                        title="Supprimer">
+                                        <i class="fe fe-trash-2 fe-pen" title="Supprimer"></i>
+                                        Supprimer
+                                    </a>
+                                @endif
                             </td>
-
                             <!-- Modal Confirmation de suppression de l'élément -->
                             <div class="modal fade" id="confirmDeleteModal{{ $item->id }}" tabindex="-1"
                                 aria-labelledby="confirmDeleteModalLabel{{ $item->id }}" aria-hidden="true">
@@ -107,7 +109,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="{{ route('nfts.store') }}" enctype="multipart/form-data" >
+                    <form method="POST" action="{{ route('nfts.store') }}" enctype="multipart/form-data">
                         @csrf
 
                         <div class="mb-3">
@@ -153,9 +155,10 @@
 
                         <div class="mb-3">
                             <label for="image" class="form-label">Image :</label>
-                            <input type="file" class="form-control-file" id="image" name="image" accept="image/*" required>
+                            <input type="file" class="form-control-file" id="image" name="image"
+                                accept="image/*" required>
                         </div>
-                        
+
 
                         <div class="mb-3">
                             <label for="proprietaire" class="form-label">Propriétaire :</label>
