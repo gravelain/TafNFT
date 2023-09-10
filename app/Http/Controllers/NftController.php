@@ -63,16 +63,35 @@ class NftController extends Controller
             'adresse' => 'required|string|unique:nfts',
             'token_standard' => 'required|in:ERC-721,ERC-1155,ERC-998',
             'price' => 'required|numeric',
-            'image' => 'required|string|max:255',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Ajout des règles pour l'image
             'proprietaire_id' => 'nullable|exists:users,id',
             'category_id' => 'required|exists:categories,id',
-            'user_id' => 'required|exists:users,id'
         ]);
 
-        Nft::create($request->all());
+        // Traitement de l'image téléchargée
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('images'), $imageName); // Assurez-vous que le répertoire public/images existe
+            $imagePath = 'images/' . $imageName;
+        }
 
-        return redirect()->route('nfts.index')->with('success','NFT créé avec succès.');
+        // Enregistrement du NFT avec le chemin de l'image dans la base de données
+        Nft::create([
+            'title' => $request->input('title'),
+            'artiste' => $request->input('artiste'),
+            'description' => $request->input('description'),
+            'adresse' => $request->input('adresse'),
+            'token_standard' => $request->input('token_standard'),
+            'price' => $request->input('price'),
+            'image' => $imagePath, // Chemin de l'image dans le stockage
+            'proprietaire_id' => $request->input('proprietaire_id'),
+            'category_id' => $request->input('category_id'),
+        ]);
+
+        return redirect()->route('nfts.index')->with('success', 'NFT créé avec succès.');
     }
+
 
     /**
      * Display the specified resource.
@@ -105,18 +124,17 @@ class NftController extends Controller
             'title' => 'required|string|max:100',
             'artiste' => 'required|string',
             'description' => 'required|string|max:255',
-            'adresse' => 'required|string|unique:nfts,adresse,'.$id,
+            'adresse' => 'required|string|unique:nfts,adresse,' . $id,
             'token_standard' => 'required|in:ERC-721,ERC-1155,ERC-998',
             'price' => 'required|numeric',
             'image' => 'required|string|max:255',
             'proprietaire_id' => 'nullable|exists:users,id',
             'category_id' => 'required|exists:categories,id',
-            'user_id' => 'required|exists:users,id'
         ]);
 
         Nft::find($id)->update($request->all());
 
-        return redirect()->route('nfts.index')->with('success','NFT mis à jour avec succès');
+        return redirect()->route('nfts.index')->with('success', 'NFT mis à jour avec succès');
     }
 
     /**
@@ -132,6 +150,6 @@ class NftController extends Controller
 
         $nft->delete();
 
-        return redirect()->route('nfts.index')->with('success','NFT supprimé avec succès');
+        return redirect()->route('nfts.index')->with('success', 'NFT supprimé avec succès');
     }
 }
