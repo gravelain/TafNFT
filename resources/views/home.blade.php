@@ -29,6 +29,16 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+<div class="main-container">
+    <form action="{{ route('nfts.filter') }}" method="get">
+        @csrf
+        <button type="submit" name="category_id" value="">All</button>
+        @foreach($categories as $category)
+            <button type="submit" name="category_id" value="{{ $category->id }}">{{ $category->name }}</button>
+        @endforeach
+    </form>
+</div>
 <div class="container">
     <div class="row justify-content-center">
         <div class="container margin_60_35">
@@ -44,14 +54,14 @@
                         <div class="grid_item">
                             <figure>
                                 <span class="ribbon off">{{$nft->for_sale ? 'En vente' : 'Vendu'}}</span>
-                                <a href="{{ url('product-detail-' . $nft->id) }}">
+                                <a href="{{ route('nfts.show', ['id' => $nft->id]) }}">
                                     <img class="img-fluid lazy" style="width: 80%" src="{{ asset('ecommerce/img/products/product_placeholder_square_medium.jpg') }}" data-src="{{ $nft->image }}" alt="">
                                     <!-- Ajoutez l'autre image ici si nécessaire -->
                                 </a>
                                 {{-- <div data-countdown="2019/05/15" class="countdown"></div> --}}
                             </figure>
                             {{-- <div class="rating"><i class="icon-star voted"></i><i class="icon-star voted"></i><i class="icon-star voted"></i><i class="icon-star voted"></i><i class="icon-star"></i></div> --}}
-                            <a href="{{ url('nft-detail-' . $nft->id) }}">
+                            <a href="{{ route('nfts.show', ['id' => $nft->id]) }}">
                                 <h3>{{ $nft->title }}</h3>
                             </a>
                             <div class="price_box">
@@ -64,9 +74,7 @@
                             </div>
                             <div class="price_box">
                                 @if($nft->for_sale == 0)
-                                <div class="btn_add_to_cart"><a href="#0" class="btn_1">Vendre</a></div>
-                                @else
-                                <div class="btn_add_to_cart"><a href="#0" class="btn_1">Acheter</a></div>
+                                    <div class="btn_add_to_cart"><a href="#0" class="btn_1">Vendre</a></div>
                                 @endif
                             </div>
                             <ul>

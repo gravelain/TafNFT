@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Nft;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class NftController extends Controller
@@ -13,7 +14,33 @@ class NftController extends Controller
     public function index()
     {
         $nfts = Nft::all();
-        return view('home')->with('nfts', $nfts);
+        $categories = Category::all();
+        return view('home', compact('nfts','categories'));
+    }
+
+    public function search(Request $request)
+    {
+        $categories = Category::all();
+        $category_id = $request->input('category_id');
+
+        $nfts = Nft::query();
+
+        if ($category_id) {
+            $nfts->where('category_id', $category_id);
+        }
+
+        $nfts = $nfts->get();
+
+        return view('nfts/nfts', compact('nfts', 'categories'));
+    }
+
+    public function filtrerParCategorie($id) {
+        // Récupérez les nfts de la catégorie spécifiée
+        $categories = Category::all();
+        $nfts = Nft::where('category_id', $id)->get();
+    
+        // Retournez la vue avec les nfts filtrés
+        return view('nfts/nfts', compact('nfts','categories'));
     }
 
     /**
