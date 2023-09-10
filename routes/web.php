@@ -34,6 +34,7 @@ Route::middleware(['auth','admin'])->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
         Route::get('/home', [DashboardController::class, 'index'])->name('home');
         Route::post('/store-nft', [NftController::class, 'store'])->name('store.nft');
+        Route::get('/list-users',[DashboardController::class, 'getUsers'])->name('users.index');
     });
 
     Route::middleware('role:user')->group(function () {
