@@ -18,12 +18,23 @@ class Nft extends Model
         'description',
         'adresse',
         'token_standard',
-        'prix',
+        'price',
         'image',
         'proprietaire_id', // personne ayant payé le nft
         'user_id',  // personne qui crée le nft
         'category_id'
     ];
+
+    /**
+     * 
+     */
+    protected static function boot()
+    {
+        parent::boot();
+        static::saving(function ($model) {
+            $model->user_id = auth()->user()->id ?? 1;
+        });
+    }
 
     /**
      * Get the category of the Nft

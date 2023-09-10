@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Nft;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -21,7 +22,11 @@ class DashboardController extends Controller
 
     public function getNft()
     {
-        $data = ['nfts' => Nft::all()];
+        $data = [
+            'nfts' => Nft::all(),
+            'categories' => Category::all(),
+            'users' => User::all()
+        ];
         return view('dashboard.nft.index', $data);
     }
 }

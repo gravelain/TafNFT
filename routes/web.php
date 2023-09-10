@@ -33,9 +33,10 @@ Route::middleware(['auth','admin'])->group(function () {
         // route admin authentifié
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
         Route::get('/home', [DashboardController::class, 'index'])->name('home');
-        Route::post('/store-nft', [NftController::class, 'store'])->name('store.nft');
+        Route::post('/store-nft', [NftController::class, 'store'])->name('nfts.store');
         Route::get('/list-users',[DashboardController::class, 'getUsers'])->name('users.index');
         Route::get('/list-nfts',[DashboardController::class, 'getNft'])->name('nfts.index');
+        Route::delete('/list-nfts/{id}',[NftController::class, 'destroy'])->name('nfts.delete');
     });
 
     Route::middleware('role:user')->group(function () {
