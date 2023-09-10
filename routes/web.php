@@ -28,8 +28,8 @@ Route::get('/', function () {
 
 
 // route authentifi 
-Route::middleware(['auth','admin'])->group(function () {
-    Route::middleware(['role:admin'])->prefix('admin')->group(function () {
+Route::middleware(['auth','redirect.admin'])->group(function () {
+    Route::prefix('admin')->group(function () {
         // route admin authentifié
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
         Route::get('/home', [DashboardController::class, 'index'])->name('home');
@@ -38,17 +38,16 @@ Route::middleware(['auth','admin'])->group(function () {
         Route::get('/list-nfts',[DashboardController::class, 'getNft'])->name('nfts.index');
         Route::delete('/list-nfts/{id}',[NftController::class, 'destroy'])->name('nfts.delete');
     });
+});
 
-    Route::middleware('role:user')->group(function () {
-        // route user authentifié
-        Route::get('/home', [HomeController::class, 'index'])->name('home');
-    });
+Route::middleware(['auth','role:admin,user'])->group(function () {
+    Route::get('/nfts', [NftController::class, 'index'])->name('all.nfts');
+    Route::get('/one-nft', [NftController::class, 'show'])->name('one.nfts');
+});
 
-
-    Route::middleware('role:admin,user')->group(function () {
-        Route::get('/nfts', [NftController::class, 'index'])->name('all.nfts');
-        Route::get('/one-nft', [NftController::class, 'show'])->name('one.nfts');
-    });
+Route::middleware(['auth','role:user'])->group(function () {
+    // route user authentifié
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
 });
 
 Auth::routes();

@@ -21,7 +21,6 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
-        // \App\Http\Middleware\IsAdminMiddleware::class
     ];
 
     /**
@@ -65,7 +64,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'role' => \jeremykenedy\LaravelRoles\App\Http\Middleware\VerifyRole::class,
-        'admin' => \App\Http\Middleware\IsAdminMiddleware::class,
+        'redirect.admin' => \App\Http\Middleware\RedirectIfAdmin::class,
         // 'permission' => \jeremykenedy\LaravelRoles\App\Http\Middleware\VerifyPermission::class,
         // 'level' => \jeremykenedy\LaravelRoles\App\Http\Middleware\VerifyLevel::class,
     ];
