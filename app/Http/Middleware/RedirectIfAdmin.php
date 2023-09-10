@@ -5,8 +5,9 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Auth;
 
-class IsAdminMiddleware
+class RedirectIfAdmin
 {
     /**
      * Handle an incoming request.
@@ -15,6 +16,12 @@ class IsAdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        return $next($request);
+
+        if (Auth::check() && Auth::user()->isAdmin()) {
+            return $next($request); // L'utilisateur est administrateur, laissez-le passer.
+        }
+
+        return redirect()->route('home'); // Redirige les utilisateurs non administrateurs vers la page d'accueil.
+
     }
 }
