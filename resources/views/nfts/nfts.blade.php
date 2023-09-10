@@ -73,9 +73,12 @@
                                 {{-- <span class="old_price">$60.00</span> --}}
                             </div>
                             <div class="price_box">
-                                @if($nft->for_sale == 1)
-                                    <div class="btn_add_to_cart"><a href="#0" class="btn_1">Acheter</a></div>   
-                                @endif
+                                <form action="{{ route('nfts.acheter', ['id' => $nft->id]) }}" method="post">
+                                    @csrf
+                                    @if($nft->for_sale == 1 && Auth::check() && Auth::user()->portefeuille >= $nft->price)
+                                        <div class="btn_add_to_cart"><button type="submit" class="btn_1">Acheter</button></div>   
+                                    @endif
+                                </form>
                             </div>
                             <ul>
                                 <li><a href="#0" class="tooltip-1" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to favorites"><i class="ti-heart"></i><span>Add to favorites</span></a></li>

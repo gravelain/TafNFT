@@ -42,10 +42,14 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="container margin_60_35">
+            
             <div class="main_title">
                 <h2>Top Selling</h2>
-                <span>Products</span>
-                <p>Cum doctus civibus efficiantur in imperdiet deterruisset</p>
+                <span>NFTS</span>
+                
+            </div>
+            <div class="text-center">
+                <h3>Wallet: <span class="text-success"> {{ Auth::user()->portefeuille }}</span> </h3>
             </div>
             
             <div class="row small-gutters">
@@ -73,8 +77,11 @@
                                 {{-- <span class="old_price">$60.00</span> --}}
                             </div>
                             <div class="price_box">
-                                @if($nft->for_sale == 0)
-                                    <div class="btn_add_to_cart"><a href="#0" class="btn_1">Vendre</a></div>
+                                @if($nft->for_sale == 0 && $nft->proprietaire_id == Auth::id())
+                                    <form action="{{ route('nfts.vendre', ['id' => $nft->id]) }}" method="post">
+                                        @csrf
+                                        <div class="btn_add_to_cart"><button type="submit" class="btn_1">Vendre</button></div>
+                                    </form>
                                 @endif
                             </div>
                             <ul>

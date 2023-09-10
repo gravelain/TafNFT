@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Nft;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class NftController extends Controller
 {
@@ -151,5 +152,62 @@ class NftController extends Controller
         $nft->delete();
 
         return redirect()->route('nfts.index')->with('success', 'NFT supprimé avec succès');
+    }
+
+    public function acheter($id)
+    {
+        $nft = Nft::find($id);
+        
+        // Vérifiez si l'utilisateur est connecté
+        if (Auth::check()) {
+            $user = Auth::user();
+            $prixNft = $nft->price;
+            $portefeuilleUser = $user->portefeuille;
+
+            // Vérifiez si l'utilisateur a suffisamment d'argent
+            if ($portefeuilleUser >= $prixNft) {
+                // Mettez à jour les champs
+                $nft->proprietaire_id = $user->id;
+                $nft->for_sale = 0;
+                $nft->save();
+
+                $user->portefeuille -= $prixNft;
+                $user->save();
+
+                return redirect()->back()->with('success', 'Achat réussi!');
+            } else {
+                return redirect()->back()->with('error', 'Solde insuffisant pour acheter ce NFT');
+            }
+        } else {
+            return redirect()->back()->with('error', 'Veuillez vous connecter pour effectuer un achat');
+        }
+    }
+
+    public function vendre($id)
+    {
+        $nft = Nft::find($id);
+        
+        // Vérifiez si l'utilisateur est connecté
+        if (Auth::check()) {
+            $user = Auth::user();
+            $prixNft = $nft->price;
+
+            // Vérifiez si l'utilisateur possède le NFT
+            if ($nft->proprietaire_id == $user->id) {
+                // Mettez à jour les champs
+                $nft->proprietaire_id = null;
+                $nft->for_sale = 1;
+                $nft->save();
+
+                $user->portefeuille += $prixNft;
+                $user->save();
+
+                return redirect()->back()->with('success', 'Vente réussie!');
+            } else {
+                return redirect()->back()->with('error', 'Vous ne pouvez pas vendre un NFT que vous ne possédez pas');
+            }
+        } else {
+            return redirect()->back()->with('error', 'Veuillez vous connecter pour effectuer une vente');
+        }
     }
 }

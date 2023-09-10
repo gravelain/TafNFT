@@ -46,6 +46,8 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::middleware('role:user')->group(function () {
         // route user authentifié
         Route::get('/home', [HomeController::class, 'index'])->name('home');
+        Route::post('/nfts/acheter/{id}', [NftController::class, 'acheter'])->name('nfts.acheter');
+        Route::post('/nfts/vendre/{id}', [NftController::class, 'vendre'])->name('nfts.vendre');
     });
 
 

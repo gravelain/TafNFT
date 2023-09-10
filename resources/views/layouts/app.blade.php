@@ -25,6 +25,12 @@
                     <img src="assets/logo/logo.png" width="14%" height="13%" srcset=""/>
                     {{ config('app.name', 'Laravel') }}
                 </a>
+                @if(Auth::check())
+                <a class="navbar-brand" href="{{ route('home') }}">
+                    {{-- <img src="assets/logo/logo.png" width="14%" height="13%" srcset=""/> --}}
+                    Dashboard
+                </a>
+                @endif
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -82,3 +88,11 @@
     
 </body>
 </html>
+<style>
+    .link-home {
+        text-decoration: none;
+        color: black;
+        margin-left: -170px;
+        margin-bottom: 2px;
+    }
+</style>
