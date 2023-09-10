@@ -54,7 +54,7 @@
                             <td>{{ number_format($item->price, 2) }} Eth</td>
                             <td>{{ $item->category->name }}</td>
                             <td>{{ $item->for_sale ? 'A vendre' : 'vendu' }}</td>
-                            <td><img src="{{ $item->image }}" height="100" width="100" /></td>
+                            <td><img src="{{ asset($item->image) }}" height="100" width="100" /></td>
                             <td>
                                 <!-- Button trigger modal -->
                                 <a href="#" class="btn btn-danger fs-14 text-white edit-icn" data-bs-toggle="modal"
@@ -97,11 +97,6 @@
             </table>
         </div>
     </main>
-
-    <!-- Bouton pour afficher le modal -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createNFTModal">
-        Créer un nouveau NFT
-    </button>
 
     <!-- Modal pour la création d'un nouveau NFT -->
     <div class="modal fade" id="createNFTModal" tabindex="-1" aria-labelledby="createNFTModalLabel" aria-hidden="true">
