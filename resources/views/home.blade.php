@@ -29,13 +29,27 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+<div class="main-container">
+    <form action="{{ route('nfts.filter') }}" method="get">
+        @csrf
+        <button type="submit" name="category_id" value="">All</button>
+        @foreach($categories as $category)
+            <button type="submit" name="category_id" value="{{ $category->id }}">{{ $category->name }}</button>
+        @endforeach
+    </form>
+</div>
 <div class="container">
     <div class="row justify-content-center">
         <div class="container margin_60_35">
+            
             <div class="main_title">
                 <h2>Top Selling</h2>
-                <span>Products</span>
-                <p>Cum doctus civibus efficiantur in imperdiet deterruisset</p>
+                <span>NFTS</span>
+                
+            </div>
+            <div class="text-center">
+                <h3>Wallet: <span class="text-success"> {{ Auth::user()->portefeuille }}</span> </h3>
             </div>
             
             <div class="row small-gutters">
@@ -44,14 +58,14 @@
                         <div class="grid_item">
                             <figure>
                                 <span class="ribbon off">{{$nft->for_sale ? 'En vente' : 'Vendu'}}</span>
-                                <a href="{{ url('product-detail-' . $nft->id) }}">
+                                <a href="{{ route('nfts.show', ['id' => $nft->id]) }}">
                                     <img class="img-fluid lazy" style="width: 80%" src="{{ asset('ecommerce/img/products/product_placeholder_square_medium.jpg') }}" data-src="{{ $nft->image }}" alt="">
                                     <!-- Ajoutez l'autre image ici si nécessaire -->
                                 </a>
                                 {{-- <div data-countdown="2019/05/15" class="countdown"></div> --}}
                             </figure>
                             {{-- <div class="rating"><i class="icon-star voted"></i><i class="icon-star voted"></i><i class="icon-star voted"></i><i class="icon-star voted"></i><i class="icon-star"></i></div> --}}
-                            <a href="{{ url('nft-detail-' . $nft->id) }}">
+                            <a href="{{ route('nfts.show', ['id' => $nft->id]) }}">
                                 <h3>{{ $nft->title }}</h3>
                             </a>
                             <div class="price_box">
@@ -63,10 +77,11 @@
                                 {{-- <span class="old_price">$60.00</span> --}}
                             </div>
                             <div class="price_box">
-                                @if($nft->for_sale == 0)
-                                <div class="btn_add_to_cart"><a href="#0" class="btn_1">Vendre</a></div>
-                                @else
-                                <div class="btn_add_to_cart"><a href="#0" class="btn_1">Acheter</a></div>
+                                @if($nft->for_sale == 0 && $nft->proprietaire_id == Auth::id())
+                                    <form action="{{ route('nfts.vendre', ['id' => $nft->id]) }}" method="post">
+                                        @csrf
+                                        <div class="btn_add_to_cart"><button type="submit" class="btn_1">Vendre</button></div>
+                                    </form>
                                 @endif
                             </div>
                             <ul>
