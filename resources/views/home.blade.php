@@ -73,7 +73,7 @@
                                 {{-- <span class="old_price">$60.00</span> --}}
                             </div>
                             <div class="price_box">
-                                <span class="new_price">${{ $nft->price }}</span>
+                                <span class="new_price">{{ $nft->price }} ETH</span>
                                 {{-- <span class="old_price">$60.00</span> --}}
                             </div>
                             <div class="price_box">

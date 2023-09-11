@@ -57,12 +57,22 @@
                 <br> {{ $nft->description }} </p>
                 <div class="row">
                     <div class="col-lg-5 col-md-6">
-                        <div class="price_main"><span class="new_price">$148.00</span></div>
+                        <div class="price_main"><span class="new_price"> {{$nft->price}} ETH </span></div>
                     </div>
                     <div class="col-lg-4 col-md-6">
-                        @if($nft->for_sale == 1)
-                        <div class="btn_add_to_cart"><a href="#0" class="btn_1">Vendre</a></div>
-                        @endif
+                        @if(Auth::check() && Auth::user()->portefeuille >= $nft->price)
+                            @if($nft->for_sale == 1)
+                                <form action="{{ route('nfts.acheter', ['id' => $nft->id]) }}" method="post">
+                                    @csrf
+                                    <div class="btn_add_to_cart"><button type="submit" class="btn_1">Acheter</button></div>   
+                                </form>
+                            @else
+                                <form action="{{ route('nfts.vendre', ['id' => $nft->id]) }}" method="post">
+                                    @csrf
+                                    <div class="btn_add_to_cart"><button type="submit" class="btn_1">Vendre</button></div>
+                                </form>
+                            @endif
+                        +@endif
                         {{-- <div class="btn_add_to_cart"><a href="#0" class="btn_1">Acheter</a></div> --}}
                         
                     </div>
